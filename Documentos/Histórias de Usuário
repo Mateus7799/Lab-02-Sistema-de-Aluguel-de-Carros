@@ -1,0 +1,15 @@
+# Histórias de Usuário do Sistema de Locação de Veículos
+
+Usuário Cliente:
+- Como cliente, quero me cadastrar informando meus dados pessoais para acessar as funcionalidades de aluguel de veículos
+- Como cliente, quero realizar login para acessar meus pedidos de forma segura
+- Como cliente, quero criar um pedido de aluguel informando dados do automóvel e do contrato para solicitar a locação
+- Como cliente, quero consultar meus pedidos para acompanhar o status e verificar se foram aprovados
+- Como cliente, quero modificar um pedido para corrigir ou atualizar informações antes da aprovação
+- Como cliente, quero cancelar um pedido para desistir da solicitação
+
+Usuário Agente:
+- Como agente, quero analisar financeiramente os pedidos para verificar a viabilidade do contrato
+- Como agente, quero avaliar os pedidos com base nos dados do cliente para garantir segurança na aprovação
+- Como agente, quero modificar pedidos quando necessário durante a análise
+- Como agente, quero aprovar ou reprovar pedidos para definir se o contrato será executado
