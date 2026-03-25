@@ -8,10 +8,10 @@ O projeto está sendo desenvolvido como parte da disciplina **Laboratório de De
 
 ## 🚧 Status do Projeto
 
-![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
-![Versão](https://img.shields.io/badge/versão-0.4-blue)
-![Licença](https://img.shields.io/badge/licença-MIT-green)
-![Funcionalidades](https://img.shields.io/badge/funcionalidades-em%20definição-lightgrey)
+![Status](https://img.shields.io/badge/status-in%20development-yellow)
+![Version](https://img.shields.io/badge/version-0.1-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Progress](https://img.shields.io/badge/progress-initial-lightgrey)
 [![GitHub repo size](https://img.shields.io/github/repo-size/Mateus7799/Lab-02-Sistema-de-Aluguel-de-Carros?style=for-the-badge)](https://github.com/Mateus7799/Lab-02-Sistema-de-Aluguel-de-Carros.git)
 
 ---
@@ -56,7 +56,7 @@ Este projeto está sendo desenvolvido como parte da disciplina **Laboratório de
 [Ver PDF](Documentos/Diagramas/diagrama-de-classes.pdf)
 
 ### Diagrama de Pacotes
-![Casos de Uso](Documentos/Imagens/casos-de-uso.png)
+![Casos de Uso](Documentos/Imagens/diagrama-de-pacotes.png)
 [Ver PDF](Documentos/Imagens/diagrama-de-pacotes.png)
 
 ---
