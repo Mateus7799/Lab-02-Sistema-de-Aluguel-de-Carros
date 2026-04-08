@@ -1,0 +1,5 @@
+com\aluguel\model\Usuario.class
+META-INF\panache-archive.marker
+com\aluguel\model\Cliente.class
+com\aluguel\controller\ClienteController.class
+com\aluguel\controller\IndexController.class
