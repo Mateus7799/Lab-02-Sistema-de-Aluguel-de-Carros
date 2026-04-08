@@ -59,6 +59,12 @@ Este projeto está sendo desenvolvido como parte da disciplina **Laboratório de
 ![Casos de Uso](Documentos/Imagens/diagrama-de-pacotes.jpeg)
 
 
+### Diagrama de Coponentes
+![Casos de Uso](Documentos/Imagens/diagrama-de-componentes.png)
+
+
+
+
 ---
 
 ## ✨ Funcionalidades Principais
