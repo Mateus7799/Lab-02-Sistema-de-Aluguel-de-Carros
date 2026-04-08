@@ -48,19 +48,16 @@ Este projeto está sendo desenvolvido como parte da disciplina **Laboratório de
 ## 📷 Diagramas
 
 ### Diagrama de Casos de Uso
-![Casos de Uso](Documentos/Imagens/diagrama-de-casos-de-uso.png)
+![Casos de Uso](Documentos/Imagens/diagrama-de-casos-de-uso.jpeg)
 
-[Ver PDF](Documentos/Diagramas/diagrama-de-casos-de-uso.pdf) 
 
 ### Diagrama de Classes
 ![Casos de Uso](Documentos/Imagens/diagrama-de-classes.png)
 
-[Ver PDF](Documentos/Diagramas/diagrama-de-classes.pdf)
 
 ### Diagrama de Pacotes
-![Casos de Uso](Documentos/Imagens/diagrama-de-pacotes.png)
+![Casos de Uso](Documentos/Imagens/diagrama-de-pacotes.jpeg)
 
-[Ver PDF](Documentos/Imagens/diagrama-de-pacotes.png)
 
 ---
 
@@ -82,12 +79,54 @@ Este projeto está sendo desenvolvido como parte da disciplina **Laboratório de
 - Mateus Azevedo Araújo
 - Matheus Dias Mendes
   
-     
+
+## 📁 Estrutura do Projeto
+
+```
+code/
+├── pom.xml
+└── src/main/
+    ├── java/com/aluguel/
+    │   ├── model/
+    │   │   ├── Usuario.java       (PanacheEntity com id, nome, rg, cpf, endereco)
+    │   │   └── Cliente.java       (extends Usuario com profissao + 3 rendimentos)
+    │   └── controller/
+    │       ├── ClienteController.java  (listar, criar, editar, deletar + validacoes)
+    │       └── IndexController.java   (redireciona / para /clientes)
+    └── resources/
+        ├── application.properties  (H2 configurado, porta 8080)
+        └── templates/
+            ├── listar.html         (tabela com busca, editar e excluir)
+            └── formulario.html     (formulario de cadastro/edicao com validacao de CPF/RG)
+
+```
+
+
+## 🚀 Como Executar
+
+### Pré-requisitos
+
+2. Acesse o codigo:
+```bash
+cd code
+```
+
+2. Execute o comando:
+```bash
+mvn quarkus:dev
+```
+
+3. Execute o comando:
+```bash
+http://localhost:8080
+```
+
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-**Frontend:** (em definição)  
-**Backend:** (em definição)  
+* **Frontend:** Qute Templates (Server-side rendering para Páginas Dinâmicas).
+* **Backend:** Java 17+, Quarkus (Framework), Hibernate Panache (ORM).
+* **Banco de Dados:** H2 Database (In-memory).
 
 ---
