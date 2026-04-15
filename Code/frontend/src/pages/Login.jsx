@@ -79,6 +79,19 @@ function Login() {
             </button>
           </form>
 
+          <div className="mt-5 text-center">
+            <p className="text-sm text-slate-500">
+              Não tem uma conta?{' '}
+              <button
+                type="button"
+                onClick={() => navigate('/signup')}
+                className="text-blue-600 font-semibold hover:underline"
+              >
+                Criar conta
+              </button>
+            </p>
+          </div>
+
           <div className="mt-6 pt-5 border-t border-gray-100">
             <p className="text-xs text-slate-400 text-center font-medium mb-2">Credenciais de demonstração</p>
             <div className="grid grid-cols-2 gap-2 text-xs text-slate-500">
