@@ -89,50 +89,106 @@ Este projeto está sendo desenvolvido como parte da disciplina **Laboratório de
 ## 📁 Estrutura do Projeto
 
 ```
-code/
-├── pom.xml
-└── src/main/
-    ├── java/com/aluguel/
-    │   ├── model/
-    │   │   ├── Usuario.java       (PanacheEntity com id, nome, rg, cpf, endereco)
-    │   │   └── Cliente.java       (extends Usuario com profissao + 3 rendimentos)
-    │   └── controller/
-    │       ├── ClienteController.java  (listar, criar, editar, deletar + validacoes)
-    │       └── IndexController.java   (redireciona / para /clientes)
-    └── resources/
-        ├── application.properties  (H2 configurado, porta 8080)
-        └── templates/
-            ├── listar.html         (tabela com busca, editar e excluir)
-            └── formulario.html     (formulario de cadastro/edicao com validacao de CPF/RG)
+Code/
+├── backend/
+│   ├── pom.xml
+│   └── src/main/
+│       ├── java/com/aluguel/
+│       │   ├── model/
+│       │   │   ├── Usuario.java        (PanacheEntity com nome, rg, cpf, endereco — heranca JOINED)
+│       │   │   ├── Cliente.java        (extends Usuario com profissao + 3 rendimentos + totalRendimentos())
+│       │   │   ├── Automovel.java      (marca, modelo, ano, placa, valorDiaria, status, urlImagem)
+│       │   │   └── Pedido.java         (ManyToOne para Cliente e Automovel, datas, status, objetivo)
+│       │   └── controller/
+│       │       ├── AutomovelResource.java   (CRUD REST de veiculos)
+│       │       ├── ClienteResource.java     (CRUD REST de clientes com validacao CPF/RG)
+│       │       ├── PedidoResource.java      (CRUD REST de pedidos + logica de status)
+│       │       ├── ClienteController.java   (MVC com Qute para listar/criar/editar via HTML)
+│       │       └── IndexController.java     (redireciona / para /clientes)
+│       └── resources/
+│           ├── application.properties       (H2 em memoria, porta 8080, CORS configurado)
+│           └── templates/
+│               ├── listar.html              (tabela com busca, editar e excluir)
+│               └── formulario.html          (formulario de cadastro/edicao com validacao CPF/RG)
+│
+└── frontend/
+    ├── package.json
+    ├── vite.config.js
+    ├── tailwind.config.js
+    ├── index.html
+    └── src/
+        ├── main.jsx                         (entry point, envolve App com AuthProvider)
+        ├── App.jsx                          (configuracao de rotas com React Router)
+        ├── api/
+        │   ├── automoveis.js                (funcoes HTTP para /api/automoveis)
+        │   ├── clientes.js                  (funcoes HTTP para /api/clientes)
+        │   └── pedidos.js                   (funcoes HTTP para /api/pedidos)
+        ├── context/
+        │   └── AuthContext.jsx              (autenticacao mock com sessionStorage, perfis agente/cliente)
+        ├── components/
+        │   ├── Layout.jsx                   (sidebar + header com navegacao por perfil)
+        │   ├── FormularioCliente.jsx        (formulario de criar/editar cliente com mascaras CPF/RG)
+        │   ├── agente/
+        │   │   └── ModalAutomovel.jsx       (modal de criar/editar veiculo)
+        │   └── cliente/
+        │       └── ModalPedido.jsx          (modal de solicitar aluguel)
+        └── pages/
+            ├── Login.jsx
+            ├── SignUp.jsx
+            ├── Listar.jsx                   (CRUD de clientes em tabela)
+            ├── agente/
+            │   ├── DashboardAgente.jsx      (KPIs: veiculos, pedidos, clientes, lucro)
+            │   ├── EstoqueAgente.jsx        (gestao de veiculos com busca e modal)
+            │   ├── PedidosAgente.jsx        (workflow de aprovacao de pedidos)
+            │   └── PerfilAgente.jsx         (placeholder)
+            └── cliente/
+                ├── PortalCliente.jsx        (catalogo de veiculos disponiveis + pedidos recentes)
+                ├── MeusPedidos.jsx          (historico de alugueis do cliente)
+                └── PerfilCliente.jsx        (placeholder)
+
 
 ```
 
 
 ## 🚀 Como Executar
 
-### Pré-requisitos
+### Frontend
 
-2. Acesse o codigo:
+1. Acesse o a pasta frontend:
 ```bash
-cd code
+cd code/frontend
+```
+
+2. Execute primeiro o comando:
+```bash
+npm install
+```
+3. Depois de instalar as dependencas execute o comando:
+```bash
+npm run dev
+```
+
+
+### Backend
+
+1. Acesse o a pasta backend:
+```bash
+cd code backend
 ```
 
 2. Execute o comando:
 ```bash
+./mvnw quarkus:dev
+```
+ou se tiver o maven instalado:
+```bash
 mvn quarkus:dev
 ```
 
-3. Execute o comando:
-```bash
-http://localhost:8080
-```
-
----
-
 ## 🛠️ Tecnologias Utilizadas
 
-* **Frontend:** Qute Templates (Server-side rendering para Páginas Dinâmicas).
-* **Backend:** Java 17+, Quarkus (Framework), Hibernate Panache (ORM).
+* **Frontend:** React, Vite, Tailwind CSS.
+* **Backend:** Quarkus, Java 17, Maven.
 * **Banco de Dados:** H2 Database (In-memory).
 
 ---
