@@ -59,6 +59,9 @@ public class PedidoResource {
         pedido.dataFim = LocalDate.parse(dataFimStr);
         pedido.status = "pendente";
 
+        Object objValue = dados.get("objetivo");
+        pedido.objetivo = (objValue != null && !objValue.toString().isBlank()) ? objValue.toString() : null;
+
         automovel.status = "alugado";
         pedido.persist();
 
@@ -76,8 +79,10 @@ public class PedidoResource {
         String novoStatus = dados.get("status");
         pedido.status = novoStatus;
 
-        if ("concluido".equals(novoStatus) || "cancelado".equals(novoStatus)) {
+        if ("finalizado".equals(novoStatus) || "recusado".equals(novoStatus) || "cancelado".equals(novoStatus)) {
             pedido.automovel.status = "disponivel";
+        } else if ("aprovado".equals(novoStatus)) {
+            pedido.automovel.status = "alugado";
         }
 
         return Response.ok(pedido).build();
@@ -91,7 +96,7 @@ public class PedidoResource {
         if (pedido == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        if ("pendente".equals(pedido.status) || "ativo".equals(pedido.status)) {
+        if ("pendente".equals(pedido.status) || "aprovado".equals(pedido.status)) {
             pedido.automovel.status = "disponivel";
         }
         pedido.delete();

@@ -31,6 +31,9 @@ public class Pedido extends PanacheEntity {
     @Column(length = 50)
     public String status = "pendente";
 
+    @Column(length = 500)
+    public String objetivo;
+
     public static List<Pedido> listarTodos() {
         return Pedido.find("FROM Pedido p JOIN FETCH p.cliente JOIN FETCH p.automovel").list();
     }

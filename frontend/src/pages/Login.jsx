@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Car } from 'lucide-react';
 
 function Login() {
   const navigate = useNavigate();
@@ -28,45 +29,72 @@ function Login() {
   };
 
   return (
-    <div className="mx-auto flex min-h-screen items-center justify-center px-4 py-10">
-      <div className="w-full max-w-md rounded-xl bg-gray-100 p-6 shadow-sm">
-        <h1 className="flex items-center justify-center font-sans text-2xl font-semibold text-black">
-          Welcome Back!
-        </h1>
-        <p className="flex items-center justify-center p-4 font-sans text-xl font-extralight text-black">
-          To stay connected with us please login in your account
-        </p>
-        {erro && (
-          <div className="mb-4 rounded-md bg-red-50 border border-red-300 px-4 py-2 text-sm text-red-700">
-            {erro}
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-md">
+        <div className="flex flex-col items-center mb-8">
+          <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center mb-4 shadow-lg">
+            <Car size={28} className="text-white" />
           </div>
-        )}
-        <form className="flex flex-col items-center space-y-4" onSubmit={handleSubmit}>
-          <input
-            placeholder="E-mail"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-          />
-          <input
-            type="password"
-            placeholder="Senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-          />
-          <button
-            type="submit"
-            disabled={carregando}
-            className="w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700 disabled:opacity-50"
-          >
-            {carregando ? 'Entrando...' : 'Login'}
-          </button>
-        </form>
-        <p className="mt-4 text-center text-xs text-gray-500">
-          Agente: agente@aluguel.com / 123456 &nbsp;|&nbsp; Cliente: cliente@aluguel.com / 123456
-        </p>
+          <h1 className="text-white font-bold text-3xl tracking-tight">DriveHub</h1>
+          <p className="text-slate-400 text-sm mt-1">Sistema de Gestão de Aluguel de Veículos</p>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-xl p-8">
+          <h2 className="text-slate-900 font-bold text-xl mb-1">Bem-vindo de volta</h2>
+          <p className="text-slate-500 text-sm mb-6">Entre com suas credenciais para continuar</p>
+
+          {erro && (
+            <div className="mb-5 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+              {erro}
+            </div>
+          )}
+
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1.5">E-mail</label>
+              <input
+                placeholder="seu@email.com"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1.5">Senha</label>
+              <input
+                type="password"
+                placeholder="••••••"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={carregando}
+              className="w-full rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 active:bg-blue-800 disabled:opacity-50 mt-2"
+            >
+              {carregando ? 'Entrando...' : 'Entrar'}
+            </button>
+          </form>
+
+          <div className="mt-6 pt-5 border-t border-gray-100">
+            <p className="text-xs text-slate-400 text-center font-medium mb-2">Credenciais de demonstração</p>
+            <div className="grid grid-cols-2 gap-2 text-xs text-slate-500">
+              <div className="bg-slate-50 rounded-lg px-3 py-2">
+                <p className="font-semibold text-slate-600 mb-0.5">Agente</p>
+                <p>agente@aluguel.com</p>
+                <p>Senha: 123456</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg px-3 py-2">
+                <p className="font-semibold text-slate-600 mb-0.5">Cliente</p>
+                <p>cliente@aluguel.com</p>
+                <p>Senha: 123456</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

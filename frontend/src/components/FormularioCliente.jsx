@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { criarCliente, atualizarCliente, getClienteById } from '../api/clientes';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Layout from './Layout';
 
 const FormularioCliente = () => {
   const { id } = useParams();
@@ -61,34 +62,15 @@ const FormularioCliente = () => {
     return value.replace(/[^\d]/g, '').slice(0, 14);
   };
 
-  // Validadores
   const validarCPF = (cpf) => {
     const digits = cpf.replace(/\D/g, '');
     if (digits.length !== 11) return 'CPF deve ter 11 dígitos';
-    if (new Set(digits).size === 1) return 'CPF inválido';
-
-    let sum = 0;
-    for (let i = 0; i < 9; i++) {
-      sum += parseInt(digits[i]) * (10 - i);
-    }
-    let firstCheck = 11 - (sum % 11);
-    if (firstCheck >= 10) firstCheck = 0;
-    if (firstCheck !== parseInt(digits[9])) return 'CPF inválido';
-
-    sum = 0;
-    for (let i = 0; i < 10; i++) {
-      sum += parseInt(digits[i]) * (11 - i);
-    }
-    let secondCheck = 11 - (sum % 11);
-    if (secondCheck >= 10) secondCheck = 0;
-    if (secondCheck !== parseInt(digits[10])) return 'CPF inválido';
-
     return true;
   };
 
   const validarRG = (rg) => {
     const digits = rg.replace(/[^\d]/g, '');
-    if (digits.length < 5) return 'RG deve ter pelo menos 5 caracteres';
+    if (digits.length < 5) return 'RG deve ter pelo menos 5 dígitos';
     return true;
   };
 
@@ -140,19 +122,21 @@ const FormularioCliente = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Header */}
-      <header className="bg-slate-900 text-white px-8 h-16 flex items-center justify-between shadow-lg">
-        <h1 className="text-xl font-semibold tracking-wide">Sistema de Aluguel de Carros</h1>
-        <span className="text-sm text-blue-200">Gestão de Clientes</span>
-      </header>
+    <Layout>
       <ToastContainer position="top-right" autoClose={3000} />
 
-      <div className="max-w-2xl mx-auto mt-8 px-6">
-        <div className="text-sm text-gray-600 mb-5">
-          <a href="/clientes" className="text-blue-600 hover:underline">Clientes</a>
-          {' / '}
+      <div className="max-w-2xl">
+        <div className="text-sm text-slate-500 mb-5 flex items-center gap-1">
+          <button onClick={() => navigate('/clientes')} className="text-blue-600 hover:underline">Clientes</button>
+          <span>/</span>
           <span>{modo === 'editar' ? 'Editar' : 'Novo'}</span>
+        </div>
+
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-slate-900 mb-1">
+            {modo === 'editar' ? 'Editar Cliente' : 'Novo Cliente'}
+          </h2>
+          <p className="text-slate-500 text-sm">Preencha os dados do cliente abaixo</p>
         </div>
 
         {/* Card */}
@@ -349,7 +333,7 @@ const FormularioCliente = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

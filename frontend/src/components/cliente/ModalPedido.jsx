@@ -10,6 +10,7 @@ export default function ModalPedido({ automovel, clientes, onConfirmar, onFechar
       automovelId: automovel.id,
       dataInicio: dados.dataInicio,
       dataFim: dados.dataFim,
+      objetivo: dados.objetivo || '',
     });
   };
 
@@ -31,7 +32,9 @@ export default function ModalPedido({ automovel, clientes, onConfirmar, onFechar
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="px-6 py-5 space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Cliente <span className="text-red-500">*</span></label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
+              Cliente <span className="text-red-500">*</span>
+            </label>
             <select
               {...register('clienteId', { required: 'Selecione um cliente' })}
               className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
@@ -43,9 +46,12 @@ export default function ModalPedido({ automovel, clientes, onConfirmar, onFechar
             </select>
             {errors.clienteId && <p className="text-red-500 text-xs mt-1">{errors.clienteId.message}</p>}
           </div>
+
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Data Início <span className="text-red-500">*</span></label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Data Início <span className="text-red-500">*</span>
+              </label>
               <input
                 type="date"
                 {...register('dataInicio', { required: 'Obrigatório' })}
@@ -54,7 +60,9 @@ export default function ModalPedido({ automovel, clientes, onConfirmar, onFechar
               {errors.dataInicio && <p className="text-red-500 text-xs mt-1">{errors.dataInicio.message}</p>}
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Data Fim <span className="text-red-500">*</span></label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Data Fim <span className="text-red-500">*</span>
+              </label>
               <input
                 type="date"
                 {...register('dataFim', { required: 'Obrigatório' })}
@@ -63,6 +71,20 @@ export default function ModalPedido({ automovel, clientes, onConfirmar, onFechar
               {errors.dataFim && <p className="text-red-500 text-xs mt-1">{errors.dataFim.message}</p>}
             </div>
           </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
+              Objetivo do aluguel{' '}
+              <span className="text-slate-400 font-normal">(opcional)</span>
+            </label>
+            <textarea
+              rows={3}
+              placeholder="Ex: Viagem em família, reunião de negócios..."
+              {...register('objetivo')}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 resize-none"
+            />
+          </div>
+
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="button"

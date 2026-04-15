@@ -5,8 +5,11 @@ import Listar from './pages/Listar';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import DashboardAgente from './pages/agente/DashboardAgente';
+import EstoqueAgente from './pages/agente/EstoqueAgente';
+import PedidosAgente from './pages/agente/PedidosAgente';
 import PerfilAgente from './pages/agente/PerfilAgente';
 import PortalCliente from './pages/cliente/PortalCliente';
+import MeusPedidos from './pages/cliente/MeusPedidos';
 import PerfilCliente from './pages/cliente/PerfilCliente';
 
 function App() {
@@ -17,12 +20,12 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
 
         <Route path="/agente/dashboard" element={<DashboardAgente />} />
-        <Route path="/agente/estoque" element={<DashboardAgente />} />
-        <Route path="/agente/pedidos" element={<DashboardAgente />} />
+        <Route path="/agente/estoque" element={<EstoqueAgente />} />
+        <Route path="/agente/pedidos" element={<PedidosAgente />} />
         <Route path="/agente/perfil" element={<PerfilAgente />} />
 
         <Route path="/cliente/portal" element={<PortalCliente />} />
-        <Route path="/cliente/pedidos" element={<PortalCliente />} />
+        <Route path="/cliente/pedidos" element={<MeusPedidos />} />
         <Route path="/cliente/perfil" element={<PerfilCliente />} />
 
         <Route path="/clientes" element={<Listar />} />

@@ -220,24 +220,7 @@ public class ClienteController {
     private boolean validarCpf(String cpf) {
         if (cpf == null) return false;
         String digits = cpf.replaceAll("[^0-9]", "");
-        if (digits.length() != 11) return false;
-        if (digits.chars().distinct().count() == 1) return false;
-
-        int sum = 0;
-        for (int i = 0; i < 9; i++) {
-            sum += Character.getNumericValue(digits.charAt(i)) * (10 - i);
-        }
-        int firstCheck = 11 - (sum % 11);
-        if (firstCheck >= 10) firstCheck = 0;
-        if (firstCheck != Character.getNumericValue(digits.charAt(9))) return false;
-
-        sum = 0;
-        for (int i = 0; i < 10; i++) {
-            sum += Character.getNumericValue(digits.charAt(i)) * (11 - i);
-        }
-        int secondCheck = 11 - (sum % 11);
-        if (secondCheck >= 10) secondCheck = 0;
-        return secondCheck == Character.getNumericValue(digits.charAt(10));
+        return digits.length() == 11;
     }
 
     private boolean validarRg(String rg) {
