@@ -63,6 +63,10 @@ Este projeto está sendo desenvolvido como parte da disciplina **Laboratório de
 ![Casos de Uso](Documentos/Imagens/diagrama-de-componentes.png)
 
 
+### Diagrama de Implantação
+![Casos de Uso](Documentos/Imagens/diagrama-de-implantacao.jpeg)
+
+
 
 
 ---
