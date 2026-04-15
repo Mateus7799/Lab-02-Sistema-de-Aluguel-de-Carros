@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { criarCliente, atualizarCliente, getClienteById } from '../api/clientes';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormularioCliente = () => {
   const { id } = useParams();
@@ -25,7 +27,6 @@ const FormularioCliente = () => {
   const [serverErrors, setServerErrors] = useState([]);
   const cpfWatch = watch('cpf');
   const rgWatch = watch('rg');
-
   // Carregar dados do cliente se for editar
   useEffect(() => {
     if (id) {
@@ -110,17 +111,25 @@ const FormularioCliente = () => {
 
       if (modo === 'novo') {
         await criarCliente(clienteData);
+        toast.success('Cliente cadastrado com sucesso!');
+        setTimeout(() => navigate('/clientes'), 1500);
       } else {
         await atualizarCliente(id, clienteData);
+        toast.success('Cliente atualizado com sucesso!');
+        setTimeout(() => navigate('/clientes'), 1500);
       }
-
-      navigate('/clientes');
     } catch (error) {
       console.error('Erro ao salvar:', error);
       if (error.response?.data) {
-        const erros = Array.isArray(error.response.data)
-          ? error.response.data
-          : [error.response.data];
+        let erros = error.response.data;
+        // Converter objeto em array de strings
+        if (typeof erros === 'object' && !Array.isArray(erros)) {
+          erros = [erros.details || erros.message || JSON.stringify(erros)];
+        } else if (!Array.isArray(erros)) {
+          erros = [String(erros)];
+        } else {
+          erros = erros.map(e => typeof e === 'string' ? e : String(e));
+        }
         setServerErrors(erros);
       } else {
         setServerErrors(['Erro ao salvar cliente']);
@@ -137,9 +146,9 @@ const FormularioCliente = () => {
         <h1 className="text-xl font-semibold tracking-wide">Sistema de Aluguel de Carros</h1>
         <span className="text-sm text-blue-200">Gestão de Clientes</span>
       </header>
+      <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="max-w-2xl mx-auto mt-8 px-6">
-        {/* Breadcrumb */}
         <div className="text-sm text-gray-600 mb-5">
           <a href="/clientes" className="text-blue-600 hover:underline">Clientes</a>
           {' / '}
@@ -318,24 +327,25 @@ const FormularioCliente = () => {
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
 
-          {/* Card Footer */}
-          <div className="px-7 py-4 bg-gray-50 border-t border-gray-200 flex justify-end gap-3">
-            <button
-              onClick={() => navigate('/clientes')}
-              className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md font-medium text-sm hover:bg-gray-300 transition"
-            >
-              Cancelar
-            </button>
-            <button
-              onClick={handleSubmit(onSubmit)}
-              disabled={carregando}
-              className="px-6 py-2 bg-blue-600 text-white rounded-md font-medium text-sm hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {carregando ? 'Salvando...' : modo === 'editar' ? 'Salvar Alterações' : 'Cadastrar Cliente'}
-            </button>
+              {/* Card Footer */}
+              <div className="px-7 py-4 bg-gray-50 border-t border-gray-200 flex justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => navigate('/clientes')}
+                  className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md font-medium text-sm hover:bg-gray-300 transition"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  disabled={carregando}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-md font-medium text-sm hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {carregando ? 'Salvando...' : modo === 'editar' ? 'Salvar Alterações' : 'Cadastrar Cliente'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
