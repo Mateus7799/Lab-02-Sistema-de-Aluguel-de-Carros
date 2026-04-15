@@ -28,7 +28,8 @@ export default function MeusPedidos() {
 
   const carregarPedidos = useCallback(async () => {
     try {
-      const dados = await getPedidos();
+      const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+      const dados = await getPedidos(usuario.id);
       setPedidos(dados);
     } catch {
       toast.error('Erro ao carregar seus pedidos');

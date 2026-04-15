@@ -35,7 +35,7 @@ function Login() {
           <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center mb-4 shadow-lg">
             <Car size={28} className="text-white" />
           </div>
-          <h1 className="text-white font-bold text-3xl tracking-tight">DriveHub</h1>
+          <h1 className="text-white font-bold text-3xl tracking-tight font-racing">DriveHub</h1>
           <p className="text-slate-400 text-sm mt-1">Sistema de Gestão de Aluguel de Veículos</p>
         </div>
 

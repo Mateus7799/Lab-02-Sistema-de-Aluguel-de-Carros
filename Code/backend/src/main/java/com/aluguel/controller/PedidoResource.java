@@ -22,8 +22,11 @@ public class PedidoResource {
     Validator validator;
 
     @GET
-    public List<Pedido> listar() {
-        return Pedido.listarTodos();
+    public List<Pedido> listar(@QueryParam("clienteId") Long clienteId) {
+        if (clienteId != null) {
+            return Pedido.listarPorCliente(clienteId);
+        }
+        return Pedido.listAll();
     }
 
     @GET
@@ -52,11 +55,29 @@ public class PedidoResource {
                     .entity("Cliente ou automóvel não encontrado").build();
         }
 
+        LocalDate dataInicio = LocalDate.parse(dataInicioStr);
+        LocalDate dataFim = LocalDate.parse(dataFimStr);
+        
+        if (dataFim.isBefore(dataInicio)) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("A data de fim não pode ser anterior à data de início").build();
+        }
+        
+        if (dataInicio.isBefore(LocalDate.now())) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("A data de início não pode ser no passado").build();
+        }
+        
+        if (!"disponivel".equals(automovel.status)) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Automóvel não está disponível para aluguel").build();
+        }
+        
         Pedido pedido = new Pedido();
         pedido.cliente = cliente;
         pedido.automovel = automovel;
-        pedido.dataInicio = LocalDate.parse(dataInicioStr);
-        pedido.dataFim = LocalDate.parse(dataFimStr);
+        pedido.dataInicio = dataInicio;
+        pedido.dataFim = dataFim;
         pedido.status = "pendente";
 
         Object objValue = dados.get("objetivo");

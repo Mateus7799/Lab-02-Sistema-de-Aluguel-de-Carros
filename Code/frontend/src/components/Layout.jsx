@@ -37,7 +37,7 @@ export default function Layout({ children }) {
             <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shrink-0">
               <Car size={16} className="text-white" />
             </div>
-            <span className="text-white font-bold text-lg tracking-tight">DriveHub</span>
+            <span className="text-white font-bold text-lg tracking-tight font-racing">DriveHub</span>
           </div>
         </div>
 
@@ -85,7 +85,7 @@ export default function Layout({ children }) {
       <div className="flex-1 flex flex-col min-w-0">
         <header className="bg-white border-b border-gray-200 px-8 h-14 flex items-center justify-between shadow-sm">
           <h1 className="text-slate-800 font-semibold text-base">{titulo}</h1>
-          <span className="text-sm text-slate-400 font-medium tracking-wide">DriveHub</span>
+          <span className="text-sm text-slate-400 font-medium tracking-wide font-racing">DriveHub</span>
         </header>
         <main className="flex-1 p-8 overflow-auto">
           {children}

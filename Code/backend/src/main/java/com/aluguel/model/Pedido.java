@@ -34,8 +34,10 @@ public class Pedido extends PanacheEntity {
     @Column(length = 500)
     public String objetivo;
 
-    public static List<Pedido> listarTodos() {
-        return Pedido.find("FROM Pedido p JOIN FETCH p.cliente JOIN FETCH p.automovel").list();
+    public static List<Pedido> listarPorCliente(Long clienteId) {
+        return Pedido.find(
+                "cliente.id = ?1",
+                clienteId).list();
     }
 
     public static Pedido buscarPorId(Long id) {

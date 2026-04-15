@@ -5,8 +5,10 @@ const API = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-export const getPedidos = () =>
-  API.get('/pedidos').then((r) => r.data);
+export const getPedidos = (clienteId = null) => {
+  const url = clienteId ? `/pedidos?clienteId=${clienteId}` : '/pedidos';
+  return API.get(url).then((r) => r.data);
+};
 
 export const getPedidoById = (id) =>
   API.get(`/pedidos/${id}`).then((r) => r.data);

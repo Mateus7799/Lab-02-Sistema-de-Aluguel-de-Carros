@@ -20,20 +20,18 @@ export default function PortalCliente() {
 
   const carregarDados = useCallback(async () => {
     try {
-      const [autos, peds, clts] = await Promise.all([
+      const [autos, peds] = await Promise.all([
         getAutomoveisDisponiveis(),
-        getPedidos(),
-        getClientes(),
+        getPedidos(usuario.id),
       ]);
       setAutomoveis(autos);
       setPedidos(peds);
-      setClientes(clts);
     } catch {
       toast.error('Erro ao carregar dados');
     } finally {
       setCarregando(false);
     }
-  }, []);
+  }, [usuario.id]);
 
   useEffect(() => {
     carregarDados();
@@ -197,7 +195,7 @@ export default function PortalCliente() {
       {modalAberto && automovelSelecionado && (
         <ModalPedido
           automovel={automovelSelecionado}
-          clientes={clientes}
+          clientes={[]}
           onConfirmar={handleConfirmarPedido}
           onFechar={() => { setModalAberto(false); setAutomovelSelecionado(null); }}
         />
