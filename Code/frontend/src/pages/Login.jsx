@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Car } from 'lucide-react';
+import logo from '../assets/DriveHub_Logo.png';
+import carBg from '../assets/carrofundo.jpg';
 
 function Login() {
   const navigate = useNavigate();
@@ -29,14 +30,31 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-md">
-        <div className="flex flex-col items-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center mb-4 shadow-lg">
-            <Car size={28} className="text-white" />
+    <div
+      className="relative min-h-screen flex items-center justify-center px-4 py-10"
+      style={{
+        backgroundImage: `url(${carBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      <div className="absolute inset-0 bg-slate-900 opacity-70 pointer-events-none" />
+
+      <div className="relative z-10 w-full max-w-md">
+
+        <div className="flex flex-col items-center mb-6">
+          <div className="w-32 h-24 rounded-2xl bg-white overflow-hidden shadow-2xl flex items-center justify-center p-2">
+            <img
+              src={logo}
+              alt="DriveHub"
+              className="w-full h-full object-contain"
+            />
           </div>
-          <h1 className="text-white font-bold text-3xl tracking-tight font-racing">DriveHub</h1>
-          <p className="text-slate-400 text-sm mt-1">Sistema de Gestão de Aluguel de Veículos</p>
+          <p className="text-slate-400 text-sm mt-3 tracking-wide">
+            Sistema de Gestão de Aluguel de Veículos
+          </p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8">
@@ -108,6 +126,7 @@ function Login() {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

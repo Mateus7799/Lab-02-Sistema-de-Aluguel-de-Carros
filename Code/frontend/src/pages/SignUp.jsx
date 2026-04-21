@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useForm } from 'react-hook-form';
-import { Car } from 'lucide-react';
+import logo from '../assets/DriveHub_Logo.png';
+import carBg from '../assets/carrofundo.jpg';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -74,22 +75,45 @@ function SignUp() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-lg">
+  const inputClass =
+    'w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100';
+  const labelClass = 'block text-sm font-medium text-slate-700 mb-1.5';
+  const sectionTitleClass =
+    'text-xs font-bold uppercase tracking-wider text-gray-500 pt-2 pb-2 border-b border-gray-100 mb-4';
 
-        {/* Cabeçalho — mesmo estilo do Login */}
-        <div className="flex flex-col items-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center mb-4 shadow-lg">
-            <Car size={28} className="text-white" />
+  return (
+    <div
+      className="relative min-h-screen flex items-center justify-center px-4 py-10"
+      style={{
+        backgroundImage: `url(${carBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      <div className="absolute inset-0 bg-slate-900 opacity-70 pointer-events-none" />
+
+      <div className="relative z-10 w-full max-w-lg">
+
+       <div className="flex flex-col items-center mb-6">
+          <div className="w-32 h-24 rounded-2xl bg-white overflow-hidden shadow-2xl flex items-center justify-center p-2">
+            <img
+              src={logo}
+              alt="DriveHub"
+              className="w-full h-full object-contain"
+            />
           </div>
-          <h1 className="text-white font-bold text-3xl tracking-tight font-racing">DriveHub</h1>
-          <p className="text-slate-400 text-sm mt-1">Sistema de Gestão de Aluguel de Veículos</p>
+          <p className="text-slate-400 text-sm mt-3 tracking-wide">
+            Sistema de Gestão de Aluguel de Veículos
+          </p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <h2 className="text-slate-900 font-bold text-xl mb-1">Criar conta</h2>
-          <p className="text-slate-500 text-sm mb-6">Preencha seus dados para se cadastrar</p>
+          <p className="text-slate-500 text-sm mb-6">
+            Preencha seus dados para se cadastrar como cliente
+          </p>
 
           {erroServidor && (
             <div className="mb-5 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
@@ -100,12 +124,10 @@ function SignUp() {
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
 
             {/* ── Acesso ── */}
-            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 pt-1 pb-2 border-b border-gray-100">
-              Dados de acesso
-            </h3>
+            <h3 className={sectionTitleClass}>Dados de acesso</h3>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
+              <label className={labelClass}>
                 E-mail <span className="text-red-600">*</span>
               </label>
               <input
@@ -115,14 +137,16 @@ function SignUp() {
                   required: 'E-mail é obrigatório',
                   pattern: { value: /\S+@\S+\.\S+/, message: 'E-mail inválido' },
                 })}
-                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                className={inputClass}
               />
-              {errors.email && <p className="text-red-600 text-xs mt-1">{errors.email.message}</p>}
+              {errors.email && (
+                <p className="text-red-600 text-xs mt-1">{errors.email.message}</p>
+              )}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                <label className={labelClass}>
                   Senha <span className="text-red-600">*</span>
                 </label>
                 <input
@@ -132,31 +156,33 @@ function SignUp() {
                     required: 'Senha é obrigatória',
                     minLength: { value: 6, message: 'Mínimo 6 caracteres' },
                   })}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                  className={inputClass}
                 />
-                {errors.senha && <p className="text-red-600 text-xs mt-1">{errors.senha.message}</p>}
+                {errors.senha && (
+                  <p className="text-red-600 text-xs mt-1">{errors.senha.message}</p>
+                )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                <label className={labelClass}>
                   Confirmar senha <span className="text-red-600">*</span>
                 </label>
                 <input
                   type="password"
                   placeholder="••••••"
                   {...register('confirmarSenha', { required: 'Confirme sua senha' })}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                  className={inputClass}
                 />
-                {errors.confirmarSenha && <p className="text-red-600 text-xs mt-1">{errors.confirmarSenha.message}</p>}
+                {errors.confirmarSenha && (
+                  <p className="text-red-600 text-xs mt-1">{errors.confirmarSenha.message}</p>
+                )}
               </div>
             </div>
 
             {/* ── Dados Pessoais ── */}
-            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 pt-2 pb-2 border-b border-gray-100">
-              Dados pessoais
-            </h3>
+            <h3 className={sectionTitleClass}>Dados pessoais</h3>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
+              <label className={labelClass}>
                 Nome completo <span className="text-red-600">*</span>
               </label>
               <input
@@ -167,14 +193,16 @@ function SignUp() {
                   required: 'Nome é obrigatório',
                   minLength: { value: 2, message: 'Nome deve ter pelo menos 2 caracteres' },
                 })}
-                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                className={inputClass}
               />
-              {errors.nome && <p className="text-red-600 text-xs mt-1">{errors.nome.message}</p>}
+              {errors.nome && (
+                <p className="text-red-600 text-xs mt-1">{errors.nome.message}</p>
+              )}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                <label className={labelClass}>
                   CPF <span className="text-red-600">*</span>
                 </label>
                 <input
@@ -189,12 +217,15 @@ function SignUp() {
                     e.target.value = formatarCPF(e.target.value);
                     e.target.dispatchEvent(new Event('change', { bubbles: true }));
                   }}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                  className={inputClass}
                 />
-                {errors.cpf && <p className="text-red-600 text-xs mt-1">{errors.cpf.message}</p>}
+                <p className="text-gray-400 text-xs mt-1">Formato: 000.000.000-00</p>
+                {errors.cpf && (
+                  <p className="text-red-600 text-xs mt-1">{errors.cpf.message}</p>
+                )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                <label className={labelClass}>
                   RG <span className="text-red-600">*</span>
                 </label>
                 <input
@@ -209,14 +240,16 @@ function SignUp() {
                     e.target.value = formatarRG(e.target.value);
                     e.target.dispatchEvent(new Event('change', { bubbles: true }));
                   }}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                  className={inputClass}
                 />
-                {errors.rg && <p className="text-red-600 text-xs mt-1">{errors.rg.message}</p>}
+                {errors.rg && (
+                  <p className="text-red-600 text-xs mt-1">{errors.rg.message}</p>
+                )}
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
+              <label className={labelClass}>
                 Endereço <span className="text-red-600">*</span>
               </label>
               <input
@@ -224,18 +257,18 @@ function SignUp() {
                 placeholder="Rua, número, bairro, cidade - UF"
                 maxLength={255}
                 {...register('endereco', { required: 'Endereço é obrigatório' })}
-                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                className={inputClass}
               />
-              {errors.endereco && <p className="text-red-600 text-xs mt-1">{errors.endereco.message}</p>}
+              {errors.endereco && (
+                <p className="text-red-600 text-xs mt-1">{errors.endereco.message}</p>
+              )}
             </div>
 
             {/* ── Dados Profissionais ── */}
-            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 pt-2 pb-2 border-b border-gray-100">
-              Dados profissionais
-            </h3>
+            <h3 className={sectionTitleClass}>Dados profissionais</h3>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
+              <label className={labelClass}>
                 Profissão <span className="text-red-600">*</span>
               </label>
               <input
@@ -243,19 +276,21 @@ function SignUp() {
                 placeholder="Ex: Engenheiro, Médico, Advogado..."
                 maxLength={100}
                 {...register('profissao', { required: 'Profissão é obrigatória' })}
-                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                className={inputClass}
               />
-              {errors.profissao && <p className="text-red-600 text-xs mt-1">{errors.profissao.message}</p>}
+              {errors.profissao && (
+                <p className="text-red-600 text-xs mt-1">{errors.profissao.message}</p>
+              )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                Rendimentos (máximo 3)
-              </label>
+              <label className={labelClass}>Rendimentos (máximo 3)</label>
               <div className="grid grid-cols-3 gap-3">
                 {[1, 2, 3].map((num) => (
                   <div key={num}>
-                    <label className="block text-xs text-gray-500 mb-1">Rendimento {num}</label>
+                    <label className="block text-xs text-gray-400 mb-1">
+                      Rendimento {num}
+                    </label>
                     <input
                       type="number"
                       placeholder="0.00"
@@ -267,11 +302,19 @@ function SignUp() {
                           return parseFloat(value) >= 0 || 'Valor inválido';
                         },
                       })}
-                      className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                      className={inputClass}
                     />
+                    {errors[`rendimento${num}`] && (
+                      <p className="text-red-600 text-xs mt-1">
+                        {errors[`rendimento${num}`].message}
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>
+              <p className="text-xs text-gray-400 mt-2">
+                Campos não preenchidos são ignorados.
+              </p>
             </div>
 
             {/* Botão */}
@@ -298,6 +341,7 @@ function SignUp() {
             </p>
           </div>
         </div>
+
       </div>
     </div>
   );
