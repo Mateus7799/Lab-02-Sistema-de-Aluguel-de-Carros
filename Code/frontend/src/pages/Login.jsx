@@ -12,20 +12,31 @@ function Login() {
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => { // 1. Adicionamos o async aqui
     e.preventDefault();
     setErro('');
     setCarregando(true);
-    const resultado = login(email, senha);
-    setCarregando(false);
-    if (!resultado.ok) {
-      setErro(resultado.erro);
-      return;
-    }
-    if (resultado.perfil === 'agente') {
-      navigate('/agente/dashboard');
-    } else {
-      navigate('/cliente/portal');
+
+    try {
+      // 2. Adicionamos o await aqui para esperar o Java/H2 responder
+      const resultado = await login(email, senha); 
+      
+      setCarregando(false);
+
+      if (!resultado.ok) {
+        setErro(resultado.erro);
+        return;
+      }
+
+      // 3. Redirecionamento baseado no perfil
+      if (resultado.perfil === 'agente') {
+        navigate('/agente/dashboard');
+      } else {
+        navigate('/cliente/portal');
+      }
+    } catch (err) {
+      setCarregando(false);
+      setErro("Erro de conexão com o servidor.");
     }
   };
 
@@ -110,7 +121,10 @@ function Login() {
             </p>
           </div>
 
-          <div className="mt-6 pt-5 border-t border-gray-100">
+          {/* COMENTADO PARA A APRESENTAÇÃO 
+              Esta parte abaixo não aparecerá mais na tela 
+          */}
+          {/* <div className="mt-6 pt-5 border-t border-gray-100">
             <p className="text-xs text-slate-400 text-center font-medium mb-2">Credenciais de demonstração</p>
             <div className="grid grid-cols-2 gap-2 text-xs text-slate-500">
               <div className="bg-slate-50 rounded-lg px-3 py-2">
@@ -124,7 +138,8 @@ function Login() {
                 <p>Senha: 123456</p>
               </div>
             </div>
-          </div>
+          </div> 
+          */}
         </div>
 
       </div>
