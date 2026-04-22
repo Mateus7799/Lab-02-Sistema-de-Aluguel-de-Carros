@@ -149,7 +149,7 @@ Code/
             └── cliente/
                 ├── PortalCliente.jsx        (catalogo de veiculos disponiveis + pedidos recentes)
                 ├── MeusPedidos.jsx          (historico de alugueis do cliente)
-                └── PerfilCliente.jsx        (placeholder)
+                └── PerfilCliente.jsx        (página de perfil do cliente)
 
 
 ```
