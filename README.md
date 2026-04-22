@@ -52,19 +52,19 @@ Este projeto está sendo desenvolvido como parte da disciplina **Laboratório de
 
 
 ### Diagrama de Classes
-![Casos de Uso](Documentos/Imagens/diagrama-de-classes.png)
+![Classes](Documentos/Imagens/diagrama-de-classes.png)
 
 
 ### Diagrama de Pacotes
-![Casos de Uso](Documentos/Imagens/diagrama-de-pacotes.jpeg)
+![Pacotes](Documentos/Imagens/diagrama-de-pacotes.jpeg)
 
 
 ### Diagrama de Coponentes
-![Casos de Uso](Documentos/Imagens/diagrama-de-componentes.png)
+![Componentes](Documentos/Imagens/diagrama-de-componentes.png)
 
 
 ### Diagrama de Implantação
-![Casos de Uso](Documentos/Imagens/diagrama-de-implantacao.jpeg)
+![Implantação](Documentos/Imagens/diagrama-de-implantacao.png)
 
 
 
@@ -73,12 +73,13 @@ Este projeto está sendo desenvolvido como parte da disciplina **Laboratório de
 
 ## ✨ Funcionalidades Principais
 
-- Cadastro e login de usuários
-- Criação de pedidos de aluguel
-- Consulta e atualização de pedidos
-- Cancelamento de pedidos
-- Análise financeira de pedidos
-- Aprovação ou reprovação de contratos
+- Cadastro e login de usuários (Clientes e Agentes)
+- Dashboard Administrativo para Agentes (KPIs de estoque e lucro)
+- Gestão de Perfil de Usuário
+- Criação e acompanhamento de pedidos de aluguel
+- Filtro de pedidos por cliente (segurança de dados)
+- Cancelamento de pedidos pelo cliente
+- Fluxo de aprovação/reprovação de contratos por agentes
   
 ---
 
@@ -110,7 +111,7 @@ Code/
 │       │       ├── ClienteController.java   (MVC com Qute para listar/criar/editar via HTML)
 │       │       └── IndexController.java     (redireciona / para /clientes)
 │       └── resources/
-│           ├── application.properties       (H2 em memoria, porta 8080, CORS configurado)
+│           ├── application.properties       (H2 em arquivo, porta 8080, CORS configurado)
 │           └── templates/
 │               ├── listar.html              (tabela com busca, editar e excluir)
 │               └── formulario.html          (formulario de cadastro/edicao com validacao CPF/RG)
@@ -191,8 +192,8 @@ mvn quarkus:dev
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Frontend:** React, Vite, Tailwind CSS.
-* **Backend:** Quarkus, Java 17, Maven.
-* **Banco de Dados:** H2 Database (In-memory).
+* **Frontend:** React, Vite, Tailwind CSS, Lucide React (Ícones).
+* **Backend:** Quarkus (Java 17), Hibernate Panache, Maven.
+* **Banco de Dados:** H2 Database (Modo persistente via arquivo local).
 
 ---
