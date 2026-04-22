@@ -38,3 +38,4 @@ build-metrics.json
 dev-app-model.dat
 createdFiles.lst
 inputFiles.lst
+.env

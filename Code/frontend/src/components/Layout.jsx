@@ -8,7 +8,6 @@ const NAV_AGENTE = [
   { label: 'Estoque', icon: Car, href: '/agente/estoque' },
   { label: 'Pedidos', icon: CalendarCheck, href: '/agente/pedidos' },
   { label: 'Clientes', icon: Users, href: '/clientes' },
-  { label: 'Perfil', icon: UserCircle, href: '/agente/perfil' },
 ];
 
 const NAV_CLIENTE = [

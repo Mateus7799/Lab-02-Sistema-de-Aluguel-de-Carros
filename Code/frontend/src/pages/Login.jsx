@@ -120,7 +120,7 @@ function Login() {
               </div>
               <div className="bg-slate-50 rounded-lg px-3 py-2">
                 <p className="font-semibold text-slate-600 mb-0.5">Cliente</p>
-                <p>cliente@aluguel.com</p>
+                <p>ana@cliente.com</p>
                 <p>Senha: 123456</p>
               </div>
             </div>

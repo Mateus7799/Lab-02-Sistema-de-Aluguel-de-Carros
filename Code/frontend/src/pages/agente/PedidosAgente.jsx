@@ -11,6 +11,7 @@ const STATUS_COLOR = {
   recusado: 'bg-red-100 text-red-700',
   finalizado: 'bg-green-100 text-green-700',
   cancelado: 'bg-slate-100 text-slate-600',
+  cancelado_pelo_cliente: 'bg-rose-100 text-rose-700',
 };
 
 const STATUS_LABEL = {
@@ -19,6 +20,7 @@ const STATUS_LABEL = {
   recusado: 'Recusado',
   finalizado: 'Finalizado',
   cancelado: 'Cancelado',
+  cancelado_pelo_cliente: 'Cancelado pelo cliente',
 };
 
 const FILTROS = ['', 'pendente', 'aprovado', 'recusado', 'finalizado', 'cancelado'];
@@ -49,7 +51,7 @@ export default function PedidosAgente() {
     setAtualizando(true);
     try {
       await atualizarStatusPedido(id, novoStatus);
-      toast.success(`Status alterado para "${STATUS_LABEL[novoStatus]}"`);
+      toast.success(`Status alterado para "${STATUS_LABEL[novoStatus] ?? novoStatus}"`);
       await carregarPedidos();
       setPedidoSelecionado((prev) =>
         prev?.id === id ? { ...prev, status: novoStatus } : prev
@@ -167,9 +169,7 @@ export default function PedidosAgente() {
                         key={p.id}
                         onClick={() => setPedidoSelecionado(p)}
                         className={`border-t border-gray-100 cursor-pointer transition ${
-                          pedidoSelecionado?.id === p.id
-                            ? 'bg-blue-50'
-                            : 'hover:bg-gray-50'
+                          pedidoSelecionado?.id === p.id ? 'bg-blue-50' : 'hover:bg-gray-50'
                         }`}
                       >
                         <td className="px-5 py-3.5 text-slate-500 font-medium">#{p.id}</td>

@@ -3,10 +3,11 @@ import { criarCliente } from '../api/clientes';
 
 const AuthContext = createContext(null);
 
-// usuarios fixos de demonstraçao
+// usuarios fixos de demonstraçao (IDs correspondem ao import.sql do backend)
 const USUARIOS_MOCK = [
-  { id: 1, email: 'agente@aluguel.com', senha: '123456', perfil: 'agente', nome: 'Carlos Agente' },
-  { id: 2, email: 'cliente@aluguel.com', senha: '123456', perfil: 'cliente', nome: 'Ana Cliente' },
+  { id: 100, email: 'agente@aluguel.com', senha: '123456', perfil: 'agente', nome: 'Carlos Agente' },
+  { id: 201, email: 'ana@cliente.com', senha: '123456', perfil: 'cliente', nome: 'Ana Cliente', cpf: '987.654.321-00', rg: '9876543', profissao: 'Engenheira' },
+  { id: 202, email: 'bruno@cliente.com', senha: '123456', perfil: 'cliente', nome: 'Bruno Cliente', cpf: '112.233.445-56', rg: '1122334', profissao: 'Analista' },
 ];
 
 export function AuthProvider({ children }) {
@@ -58,6 +59,9 @@ export function AuthProvider({ children }) {
       senha: dadosFormulario.senha,
       perfil: 'cliente',
       nome: dadosFormulario.nome,
+      cpf: dadosFormulario.cpf,
+      rg: dadosFormulario.rg,
+      profissao: dadosFormulario.profissao,
     };
 
     const atualizados = [...usuariosDinamicos, novoUsuario];

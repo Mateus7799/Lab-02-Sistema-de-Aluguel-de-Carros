@@ -7,7 +7,6 @@ import SignUp from './pages/SignUp';
 import DashboardAgente from './pages/agente/DashboardAgente';
 import EstoqueAgente from './pages/agente/EstoqueAgente';
 import PedidosAgente from './pages/agente/PedidosAgente';
-import PerfilAgente from './pages/agente/PerfilAgente';
 import PortalCliente from './pages/cliente/PortalCliente';
 import MeusPedidos from './pages/cliente/MeusPedidos';
 import PerfilCliente from './pages/cliente/PerfilCliente';
@@ -22,8 +21,6 @@ function App() {
         <Route path="/agente/dashboard" element={<DashboardAgente />} />
         <Route path="/agente/estoque" element={<EstoqueAgente />} />
         <Route path="/agente/pedidos" element={<PedidosAgente />} />
-        <Route path="/agente/perfil" element={<PerfilAgente />} />
-
         <Route path="/cliente/portal" element={<PortalCliente />} />
         <Route path="/cliente/pedidos" element={<MeusPedidos />} />
         <Route path="/cliente/perfil" element={<PerfilCliente />} />

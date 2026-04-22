@@ -1,30 +1,37 @@
 import { useState, useEffect, useCallback } from 'react';
-import { ClipboardList, CalendarDays, Car } from 'lucide-react';
+import { ClipboardList, CalendarDays, Car, Circle as XCircle } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../../components/Layout';
-import { getPedidos } from '../../api/pedidos';
+import { getPedidos, atualizarStatusPedido } from '../../api/pedidos';
 
 const STATUS_COLOR = {
   pendente: 'bg-yellow-100 text-yellow-700 border-yellow-200',
+  solicitado: 'bg-orange-100 text-orange-700 border-orange-200',
   aprovado: 'bg-blue-100 text-blue-700 border-blue-200',
   recusado: 'bg-red-100 text-red-700 border-red-200',
   finalizado: 'bg-green-100 text-green-700 border-green-200',
   cancelado: 'bg-slate-100 text-slate-600 border-slate-200',
+  cancelado_pelo_cliente: 'bg-rose-100 text-rose-700 border-rose-200',
 };
 
 const STATUS_LABEL = {
   pendente: 'Pendente',
+  solicitado: 'Solicitado',
   aprovado: 'Aprovado',
   recusado: 'Recusado',
   finalizado: 'Finalizado',
   cancelado: 'Cancelado',
+  cancelado_pelo_cliente: 'Cancelado por mim',
 };
+
+const CANCELAVEIS = ['pendente', 'solicitado'];
 
 export default function MeusPedidos() {
   const [pedidos, setPedidos] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [filtroStatus, setFiltroStatus] = useState('');
+  const [cancelando, setCancelando] = useState(null);
 
   const carregarPedidos = useCallback(async () => {
     try {
@@ -53,9 +60,25 @@ export default function MeusPedidos() {
     return (diaria * dias).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
 
+  const cancelarPedido = async (id) => {
+    if (!window.confirm('Tem certeza que deseja cancelar este pedido?')) return;
+    setCancelando(id);
+    try {
+      await atualizarStatusPedido(id, 'cancelado_pelo_cliente');
+      toast.success('Pedido cancelado com sucesso.');
+      await carregarPedidos();
+    } catch {
+      toast.error('Erro ao cancelar pedido. Tente novamente.');
+    } finally {
+      setCancelando(null);
+    }
+  };
+
   const pedidosFiltrados = filtroStatus
     ? pedidos.filter((p) => p.status === filtroStatus)
     : pedidos;
+
+  const FILTROS = ['', 'pendente', 'solicitado', 'aprovado', 'recusado', 'finalizado', 'cancelado', 'cancelado_pelo_cliente'];
 
   return (
     <Layout>
@@ -69,7 +92,7 @@ export default function MeusPedidos() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: 'Total', valor: pedidos.length, cor: 'border-slate-200 bg-white', texto: 'text-slate-800' },
-          { label: 'Pendentes', valor: pedidos.filter((p) => p.status === 'pendente').length, cor: 'border-yellow-200 bg-yellow-50', texto: 'text-yellow-700' },
+          { label: 'Pendentes', valor: pedidos.filter((p) => p.status === 'pendente' || p.status === 'solicitado').length, cor: 'border-yellow-200 bg-yellow-50', texto: 'text-yellow-700' },
           { label: 'Aprovados', valor: pedidos.filter((p) => p.status === 'aprovado').length, cor: 'border-blue-200 bg-blue-50', texto: 'text-blue-700' },
           { label: 'Finalizados', valor: pedidos.filter((p) => p.status === 'finalizado').length, cor: 'border-green-200 bg-green-50', texto: 'text-green-700' },
         ].map((item) => (
@@ -82,7 +105,7 @@ export default function MeusPedidos() {
 
       <div className="mb-4 flex items-center gap-3 flex-wrap">
         <span className="text-sm text-slate-600 font-medium">Filtrar:</span>
-        {['', 'pendente', 'aprovado', 'recusado', 'finalizado', 'cancelado'].map((status) => (
+        {FILTROS.map((status) => (
           <button
             key={status}
             onClick={() => setFiltroStatus(status)}
@@ -151,10 +174,22 @@ export default function MeusPedidos() {
                         <p className="text-slate-500 text-sm">Ano {p.automovel.ano} · Placa {p.automovel.placa}</p>
                       )}
                     </div>
-                    <div className="text-right">
-                      <p className="text-xs text-slate-400">Valor total</p>
-                      <p className="font-bold text-blue-600 text-lg">{calcularValorTotal(p)}</p>
-                      <p className="text-xs text-slate-400">{calcularDias(p.dataInicio, p.dataFim)} dia(s)</p>
+                    <div className="text-right flex flex-col items-end gap-2">
+                      <div>
+                        <p className="text-xs text-slate-400">Valor total</p>
+                        <p className="font-bold text-blue-600 text-lg">{calcularValorTotal(p)}</p>
+                        <p className="text-xs text-slate-400">{calcularDias(p.dataInicio, p.dataFim)} dia(s)</p>
+                      </div>
+                      {CANCELAVEIS.includes(p.status) && (
+                        <button
+                          onClick={() => cancelarPedido(p.id)}
+                          disabled={cancelando === p.id}
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-100 transition disabled:opacity-50"
+                        >
+                          <XCircle size={13} />
+                          {cancelando === p.id ? 'Cancelando...' : 'Cancelar'}
+                        </button>
+                      )}
                     </div>
                   </div>
 
